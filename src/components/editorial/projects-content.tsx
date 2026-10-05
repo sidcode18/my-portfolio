@@ -6,6 +6,9 @@ type Project = {
   title: string;
   description: string;
   techStack: string[];
+  imageUrl: string | null;
+  liveLink: string | null;
+  repoLink: string | null;
 };
 
 type ProjectsContentProps = {
@@ -14,24 +17,35 @@ type ProjectsContentProps = {
 
 export function ProjectsContent({ projects }: ProjectsContentProps) {
   return (
-    <section className="pb-16">
-      <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">Archive</p>
-      <h1 className="mt-2 font-serif text-4xl font-bold text-foreground md:text-5xl">Projects</h1>
-      <p className="mt-3 max-w-xl font-mono text-sm text-muted">
-        Published portfolio projects.
+    <section className="pb-8">
+      <p className="eyebrow">Archive</p>
+      <h1 className="mt-3 text-4xl tracking-tight text-foreground md:text-5xl">
+        Projects
+      </h1>
+      <p className="mt-4 max-w-xl text-base text-muted">
+        Everything I&apos;ve published — experiments, coursework, and products built end to end.
       </p>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
-        {projects.map((project, index) => (
-          <ScrollReveal key={project.id} delay={index * 0.04}>
-            <ProjectCard
-              title={project.title}
-              description={project.description}
-              techStack={project.techStack}
-            />
-          </ScrollReveal>
-        ))}
-      </div>
+      {projects.length > 0 ? (
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {projects.map((project, index) => (
+            <ScrollReveal key={project.id} delay={index * 0.04}>
+              <ProjectCard
+                title={project.title}
+                description={project.description}
+                techStack={project.techStack}
+                imageUrl={project.imageUrl || undefined}
+                liveLink={project.liveLink}
+                repoLink={project.repoLink}
+              />
+            </ScrollReveal>
+          ))}
+        </div>
+      ) : (
+        <p className="mt-12 rounded-2xl border border-dashed border-line px-6 py-14 text-center text-sm text-faint">
+          No projects published yet. Check back soon.
+        </p>
+      )}
     </section>
   );
 }

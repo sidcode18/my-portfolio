@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 type ViewAllCtaProps = {
   href: string;
@@ -7,10 +8,10 @@ type ViewAllCtaProps = {
 
 export function ViewAllCta({ href, label }: ViewAllCtaProps) {
   return (
-    <div className="mt-8 flex justify-center sm:justify-start">
-      <Link href={href} className="editorial-btn-primary inline-flex items-center gap-2">
+    <div className="mt-6">
+      <Link href={href} className="btn btn-ghost group">
         {label}
-        <span aria-hidden>→</span>
+        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
       </Link>
     </div>
   );

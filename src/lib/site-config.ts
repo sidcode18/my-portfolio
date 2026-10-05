@@ -2,10 +2,16 @@ export const SITE_CONFIG_ID = "config";
 
 export const DEFAULT_SITE_CONFIG = {
   id: SITE_CONFIG_ID,
-  heroTitle: "Engineer in Progress: mostly figuring things out .",
-  aboutText: "Trying to bring ideas to life.",
+  fullName: "Sidharth Saji Kutty",
+  roleTagline: "Full-Stack Engineer",
+  avatarUrl: null as string | null,
+  contactEmail: null as string | null,
+  heroTitle:
+    "I build and ship full-stack products — from database schema to interface — with a focus on clean systems and deliberate design.",
+  aboutText:
+    "I'm an engineering student who spends most of my time building full-stack products and tearing apart how systems work. Currently deepening my skills in system design, backend architecture, and shipping software people actually use.",
   currentYear: 2,
-} as const;
+};
 
 const YEAR_LABELS: Record<number, string> = {
   1: "First Year",

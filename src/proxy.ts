@@ -8,7 +8,7 @@ export default auth((request) => {
   const isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
 
   if (isAdminRoute && !request.auth) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   if (request.nextUrl.pathname.startsWith("/login") && request.auth) {

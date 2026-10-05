@@ -3,12 +3,12 @@
 import { RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-const TERMINAL_COMMAND = "sid@nit-delhi:~$ cat about_me.txt";
+const TERMINAL_COMMAND = "cat about_me.txt";
 const EMPTY_OUTPUT = "No about_me.txt content configured yet.";
 
-const CHAR_DELAY = 62;
-const LINE_PAUSE = 650;
-const OUTPUT_CHAR_DELAY = 24;
+const CHAR_DELAY = 55;
+const LINE_PAUSE = 550;
+const OUTPUT_CHAR_DELAY = 16;
 
 type TerminalProps = {
   aboutText: string;
@@ -80,38 +80,40 @@ export function Terminal({ aboutText }: TerminalProps) {
 
   return (
     <div ref={containerRef} className="w-full">
-      <div className="glass-panel relative rounded-r-xl border-l-[3px] border-l-accent px-5 py-4">
-        <div className="flex items-center justify-between gap-3">
-          <p className="font-mono text-[0.7rem] uppercase tracking-widest text-muted">About Me</p>
+      <div className="overflow-hidden rounded-2xl border border-[#3A3936] bg-[#262624]">
+        <div className="flex items-center justify-between border-b border-[#3A3936] px-4 py-2.5">
+          <span className="font-mono text-xs text-[#B8B5AD]">about_me.txt — ~/profile</span>
           <button
             type="button"
             onClick={restart}
-            className="editorial-btn-ghost flex items-center gap-1.5 !px-2.5 !py-1.5"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-[#3A3936] px-2.5 py-1 font-mono text-xs text-[#B8B5AD] transition-colors hover:border-[#55534E] hover:text-[#E8E6DC]"
             aria-label="Replay typing animation"
           >
             <RotateCcw className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline"></span>
+            <span className="hidden sm:inline">Replay</span>
           </button>
         </div>
 
-        <div className="mt-3 font-mono text-sm leading-relaxed text-foreground/90">
-          <p>
-            {displayedCommand}
+        <div className="px-5 py-4 font-mono text-sm leading-relaxed">
+          <p className="text-[#E8E6DC]">
+            <span className="text-[#E08B6D]">sid@portfolio</span>
+            <span className="text-[#7A776E]">:~$</span> {displayedCommand}
             {isPlaying && phase === "command" && displayedCommand.length < TERMINAL_COMMAND.length ? (
-              <span className="ml-0.5 inline-block h-4 w-2 animate-pulse bg-accent" />
+              <span className="caret ml-1" />
             ) : null}
           </p>
           {displayedOutput || phase !== "command" ? (
-            <pre className="mt-3 whitespace-pre-wrap text-foreground/75">
+            <pre className="mt-3 whitespace-pre-wrap text-[#C9C6BC]">
               {displayedOutput}
               {isPlaying && phase === "output" && displayedOutput.length < output.length ? (
-                <span className="ml-0.5 inline-block h-4 w-2 animate-pulse bg-accent" />
+                <span className="caret ml-1" />
               ) : null}
             </pre>
           ) : null}
           {phase === "done" ? (
-            <p className="mt-2 text-accent">
-              <span className="animate-pulse">▊</span>
+            <p className="mt-3">
+              <span className="text-[#E08B6D]">sid@portfolio</span>
+              <span className="text-[#7A776E]">:~$</span> <span className="caret" />
             </p>
           ) : null}
         </div>

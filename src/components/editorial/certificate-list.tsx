@@ -1,10 +1,11 @@
-import { SpotlightCard } from "@/components/editorial/spotlight-card";
+import { BadgeCheck, ExternalLink } from "lucide-react";
 
 type CertificateItem = {
   id: string;
   title: string;
   issuer: string;
   url: string;
+  date: Date;
 };
 
 type CertificateListProps = {
@@ -12,34 +13,52 @@ type CertificateListProps = {
   showHeader?: boolean;
 };
 
+const dateFormatter = new Intl.DateTimeFormat("en", {
+  month: "short",
+  year: "numeric",
+});
+
 export function CertificateList({ certificates, showHeader = true }: CertificateListProps) {
   return (
-    <SpotlightCard>
-      <div className="glass-panel h-full rounded-2xl p-6">
-        {showHeader ? (
-          <>
-            <h3 className="font-serif text-xl font-semibold text-foreground">Recent Certificates</h3>
-            <p className="mt-1 font-mono text-xs uppercase tracking-widest text-muted">Credentials</p>
-          </>
-        ) : null}
-        <ul className={showHeader ? "mt-5 space-y-3" : "space-y-3"}>
-          {certificates.map((certificate) => (
-            <li key={certificate.id}>
-              <a
-                href={certificate.url}
-                target="_blank"
-                rel="noreferrer"
-                className="group block rounded-lg border border-transparent px-2 py-2 transition hover:border-neutral-200 hover:bg-white/40"
-              >
-                <span className="font-serif text-base text-foreground transition group-hover:text-accent">
+    <div className="panel h-full rounded-2xl p-6">
+      {showHeader ? (
+        <>
+          <p className="eyebrow">Credentials</p>
+          <h3 className="mt-1.5 text-xl tracking-tight text-foreground">Certifications</h3>
+        </>
+      ) : null}
+
+      <ul className={showHeader ? "mt-5 space-y-1.5" : "space-y-1.5"}>
+        {certificates.map((certificate) => (
+          <li key={certificate.id}>
+            <a
+              href={certificate.url}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center gap-3 rounded-xl border border-transparent px-3 py-2.5 transition-colors duration-200 hover:border-line hover:bg-surface-muted"
+            >
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-line bg-surface-muted text-muted transition-colors duration-200 group-hover:text-accent-strong">
+                <BadgeCheck className="h-4 w-4" />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-sm font-medium text-foreground">
                   {certificate.title}
                 </span>
-                <span className="mt-0.5 block font-mono text-xs text-muted">{certificate.issuer}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </SpotlightCard>
+                <span className="block truncate text-xs text-faint">{certificate.issuer}</span>
+              </span>
+              <span className="shrink-0 text-xs text-faint">
+                {dateFormatter.format(certificate.date)}
+              </span>
+              <ExternalLink className="h-3.5 w-3.5 shrink-0 text-faint opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+            </a>
+          </li>
+        ))}
+        {certificates.length === 0 ? (
+          <li className="rounded-xl border border-dashed border-line px-3 py-6 text-center text-xs text-faint">
+            No certificates added yet.
+          </li>
+        ) : null}
+      </ul>
+    </div>
   );
 }

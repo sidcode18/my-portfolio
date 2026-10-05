@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Playfair_Display } from "next/font/google";
+import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
   subsets: ["latin"],
   display: "swap",
 });
@@ -15,8 +21,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sid | Full-Stack Engineer",
-  description: "Custom full-stack portfolio with a secure admin dashboard.",
+  title: "Sidharth Saji Kutty | Full-Stack Engineer",
+  description:
+    "Portfolio of Sidharth Saji Kutty — full-stack engineering, system design, and selected work.",
 };
 
 export default function RootLayout({
@@ -27,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${jetbrains.variable}`}
+      className={`${inter.variable} ${sourceSerif.variable} ${jetbrains.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen text-foreground antialiased">{children}</body>

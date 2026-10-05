@@ -63,9 +63,10 @@ model Project {
   title       String
   description String   @db.Text
   techStack   String[]
-  imageUrl    String
+  imageUrl    String?
   liveLink    String?
   repoLink    String?
+  featured    Boolean  @default(false)
   isPublished Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -81,11 +82,15 @@ model Link {
 }
 
 model SiteConfig {
-  id          String   @id @default("config")
-  heroTitle   String   @default("Engineer in Progress: mostly figuring things out .") @db.Text
-  aboutText   String   @default("Trying to bring ideas to life.") @db.Text
-  currentYear Int      @default(2)
-  updatedAt   DateTime @updatedAt
+  id           String   @id @default("config")
+  fullName     String   @default("Sidharth Saji Kutty")
+  roleTagline  String   @default("Full-Stack Engineer")
+  avatarUrl    String?
+  contactEmail String?
+  heroTitle    String   @default("I build and ship full-stack products.") @db.Text
+  aboutText    String   @default("Trying to bring ideas to life.") @db.Text
+  currentYear  Int      @default(2)
+  updatedAt    DateTime @updatedAt
 }
 
 model Certificate {
